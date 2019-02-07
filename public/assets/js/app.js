@@ -23,7 +23,7 @@ $(document).on("click", "p", function() {
   // Empty the notes from the note section
   $("#notes").empty();
   // Save the id from the p tag
-  var thisId = $(this).attr("data-id");
+  var thisId = $("#savenote").attr("data-id");
 
   // Now make an ajax call for the Article
   $.ajax({
@@ -60,7 +60,7 @@ $(document).on("click", "#savenote", function() {
   $.ajax({
     method: "POST",
     url: "/articles/" + thisId,
-    data: {
+    note: {
       // Value taken from title input
       title: $("#titleinput").val(),
       // Value taken from note textarea
@@ -68,9 +68,9 @@ $(document).on("click", "#savenote", function() {
     }
   })
     // With that done
-    .then(function(data) {
+    .then(function(note) {
       // Log the response
-      console.log(data);
+      console.log(note);
       // Empty the notes section
       $("#notes").empty();
     });
