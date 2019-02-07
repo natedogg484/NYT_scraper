@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/test4", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/test9", { useNewUrlParser: true });
 
 // Routes
 
@@ -35,23 +35,26 @@ mongoose.connect("mongodb://localhost/test4", { useNewUrlParser: true });
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
   axios.get("https://www.nytimes.com").then(function(response) {
-
     // Load the HTML into cheerio and save it to a variable
     // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
-    var $ = cheerio.load(response.data);    
-   
-  
+    var $ = cheerio.load(response.data);
+
     // Select each element in the HTML body from which you want information.
     // NOTE: Cheerio selectors function similarly to jQuery's selectors,
     // but be sure to visit the package's npm page to see how it works
     $("article").each(function(i, element) {
       var result = {};
 
-      result.title = $(this).find("h2").text();      
-      result.link = $(this).find("a").attr("href");
-      result.summary = $(this).find("p").text()
-  
-  
+      result.title = $(this)
+        .find("h2")
+        .text();
+      result.link = $(this)
+        .find("a")
+        .attr("href");
+      result.summary = $(this)
+        .find("p")
+        .text();
+
       // Save these results in an object that we'll push into the results array we defined earlier
       db.Article.create(result)
         .then(function(dbArticle) {
@@ -63,7 +66,7 @@ app.get("/scrape", function(req, res) {
           console.log(err);
         });
     });
-  
+    res.send("Scrape Complete");
   });
 });
 
@@ -105,7 +108,11 @@ app.post("/articles/:id", function(req, res) {
       // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
       // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-      return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+      return db.Article.findOneAndUpdate(
+        { _id: req.params.id },
+        { note: dbNote._id },
+        { new: true }
+      );
     })
     .then(function(dbArticle) {
       // If we were able to successfully update an Article, send it back to the client

@@ -10,36 +10,37 @@
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
     />
+    <!-- google fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Fahkwang"
+      rel="stylesheet"
+    />
     <!-- style sheet inherent -->
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
   </head>
   <body>
     <div class="container" id="wrapper">
-      <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4"><h1>NYT Articles</h1></div>
-        <div class="col-md-4"></div>
+      <div class="jumbotron text-center">
+        <h1 class="display-4">NYT Article Scraper</h1>
+        <button type="button" class="btn btn-dark" id="scrape">
+          Push To Load Articles
+        </button>
+        <hr class="my-4" />
+        <h2><i>Click on an Article to make a Comment</i></h2>
       </div>
       <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-          <h2><i>Click on an article to make a comment</i></h2>
-        </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-6" id="articles"></div>
+        <div class="col-md-6" id="notes"></div>
       </div>
-      <div class="row">
-          <div class="col-md-6" id="articles"></div>
-          <div class="col-md-6" id="notes"></div>
-        </div>    
 
-      <div ></div>
-      <div ></div>
+      <div></div>
+      <div></div>
     </div>
 
     <!-- javascript libraries -->
     <script src="lib/jquery/jquery.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="app.js"></script>
+    <script src="assets/js/app.js"></script>
   </body>
 </html>
