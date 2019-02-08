@@ -1,29 +1,30 @@
 //Scrape button
-$("#scrape").on("click", function() {
+$("#scrape").on("click", function () {
   $.ajax({
-      method: "GET",
-      url: "/scrape",
-  }).done(function(data) {
-      console.log(data)
-      window.location = "index.html"
+    method: "GET",
+    url: "/scrape",
+  }).done(function (data) {
+    console.log(data)
+    window.location = "index.html"
   })
 });
 
 // Grab the articles as a json
-$.getJSON("/articles", function(data) {
+$.getJSON("/articles", function (data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
-    $("#articles").append("<div class ='card' data-id='" + data[i]._id + "id='commentId'>" + "<div class='card-body'>" + "<h3 class ='card-title'>" + data[i].title + "</h3>" + "<p class='card-text'>" + data[i].summary + "</p>" +  "<a href='https://www.nytimes.com" + data[i].link + "class='btn btn-primary'>" + "Original Article" + "</a>"+ "</div>" + "</div>")
+    $("#articles").append("<div class ='card'>" + "<div class='card-body'>" + "<h3 class ='card-title'>" + data[i].title + "</h3>" + "<p class='card-text' + data-id=" + data[i]._id + ">" + data[i].summary + "</p>" + "<a href='https://www.nytimes.com" + data[i].link + "class='btn btn-primary'>" + "Original Article" + "</a>" + "</div>" + "</div>")
   }
 });
 
 // Whenever someone clicks a p tag
-$(document).on("click", "p", function() {
+$(document).on("click", "p", function () {
   // Empty the notes from the note section
   $("#notes").empty();
   // Save the id from the p tag
   var thisId = $(this).attr("data-id");
+  console.log(thisId)
 
   // Now make an ajax call for the Article
   $.ajax({
@@ -31,7 +32,7 @@ $(document).on("click", "p", function() {
     url: "/articles/" + thisId
   })
     // With that done, add the note information to the page
-    .then(function(data) {
+    .then(function (data) {
       console.log(data);
       $("#notes").append("<h2>" + "Make A Comment" + "</h2>");
       // An input to enter a new title
@@ -52,7 +53,7 @@ $(document).on("click", "p", function() {
 });
 
 // When you click the savenote button
-$(document).on("click", "#savenote", function() {
+$(document).on("click", "#savenote", function () {
   // Grab the id associated with the article from the submit button
   var thisId = $(this).attr("data-id");
 
@@ -60,7 +61,7 @@ $(document).on("click", "#savenote", function() {
   $.ajax({
     method: "POST",
     url: "/articles/" + thisId,
-    note: {
+    data: {
       // Value taken from title input
       title: $("#titleinput").val(),
       // Value taken from note textarea
@@ -68,7 +69,7 @@ $(document).on("click", "#savenote", function() {
     }
   })
     // With that done
-    .then(function(note) {
+    .then(function (note) {
       // Log the response
       console.log(note);
       // Empty the notes section
