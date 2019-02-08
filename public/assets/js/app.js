@@ -23,7 +23,7 @@ $(document).on("click", "p", function() {
   // Empty the notes from the note section
   $("#notes").empty();
   // Save the id from the p tag
-  var thisId = $("#commentId").attr("data-id");
+  var thisId = $(this).attr("data-id");
 
   // Now make an ajax call for the Article
   $.ajax({
@@ -54,7 +54,7 @@ $(document).on("click", "p", function() {
 // When you click the savenote button
 $(document).on("click", "#savenote", function() {
   // Grab the id associated with the article from the submit button
-  var thisId = $("#commentId").attr("data-id");
+  var thisId = $(this).attr("data-id");
 
   // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
