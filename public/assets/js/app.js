@@ -14,7 +14,7 @@ $.getJSON("/articles", function(data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
-    $("#articles").append("<div class ='card' data-id='" + data[i]._id + "'>" + "<div class='card-body'>" + "<h3 class ='card-title'>" + data[i].title + "</h3>" + "<p class='card-text'>" + data[i].summary + "</p>" +  "<a href='https://www.nytimes.com" + data[i].link + "class='btn btn-primary'>" + "Original Article" + "</a>"+ "</div>" + "</div>")
+    $("#articles").append("<div class ='card' data-id='" + data[i]._id + "id='commentId'>" + "<div class='card-body'>" + "<h3 class ='card-title'>" + data[i].title + "</h3>" + "<p class='card-text'>" + data[i].summary + "</p>" +  "<a href='https://www.nytimes.com" + data[i].link + "class='btn btn-primary'>" + "Original Article" + "</a>"+ "</div>" + "</div>")
   }
 });
 
@@ -23,7 +23,7 @@ $(document).on("click", "p", function() {
   // Empty the notes from the note section
   $("#notes").empty();
   // Save the id from the p tag
-  var thisId = $("#savenote").attr("data-id");
+  var thisId = $("#commentId").attr("data-id");
 
   // Now make an ajax call for the Article
   $.ajax({
@@ -54,7 +54,7 @@ $(document).on("click", "p", function() {
 // When you click the savenote button
 $(document).on("click", "#savenote", function() {
   // Grab the id associated with the article from the submit button
-  var thisId = $("#savenote").attr("data-id");
+  var thisId = $("#commentId").attr("data-id");
 
   // Run a POST request to change the note, using what's entered in the inputs
   $.ajax({
